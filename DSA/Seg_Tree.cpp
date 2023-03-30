@@ -62,6 +62,7 @@ class Seg_Tree {
         return tree[node_index];
       }
       if ((node_left > index_right) || (node_right < index_left)) {
+        // Should not contribute to the answer, return identity element.
         return 0;
       }
 
