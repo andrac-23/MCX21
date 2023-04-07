@@ -23,7 +23,12 @@ public:
                 adjacency_list[node_b].push_back(node_a);
             }
         }
+        // TODO()
+        // "Complete" BFS to work with disconnected graphs
+        // void BFS(void);
+        
         // Fills Balance_Tree and Distance Vector
+        // TODO(): Change to BFS_Algo
         void BFS(int s, vector<int> &balance_tree, vector<int> &dist) {
             // All nodes start with visited = 0
             vector<int> visited(length, 0);
