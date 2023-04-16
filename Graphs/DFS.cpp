@@ -31,10 +31,6 @@ private:
         int edges;
 };
 
-bool is_Disjoint(int current_node, int next_node) {
-    return((current_node > next_node));
-}
-
 void Graph::DFS() {
     vector<bool> visited(nodes);
     vector<int> discovery(nodes);
