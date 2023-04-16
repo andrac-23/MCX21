@@ -65,7 +65,7 @@ void Graph::DFS_Algo(vector<bool> &visited, vector<int> &discovery, vector<int> 
         // Next node
         int next_node = adjacency_list[curr_node][i];
         if (!visited[next_node]) {
-            // Create Tree Edge
+            // Tree Edge
             cout << "Tree Edge " << curr_node << next_node << "\n";
 
             DFS_Algo(visited, discovery, finish, next_node, time);
