@@ -17,7 +17,7 @@ class DS_Union {
             this->numSets = numSets;
             setSize.assign(numSets, 1);
             rank.assign(numSets, 0);
-            parents.assign(N, 0);
+            parents.assign(numSets, 0);
 
             // We start with n sets of size 1
             for (int i = 0; i < numSets; i++) {
