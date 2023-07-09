@@ -2,7 +2,6 @@
 
   SOURCE:
 
-   * SLIDES AULA 3 - Estruturas de Dados Avancadas
    * S. Halim e F. Halim. Competitive Programming 2, Second Edition Lulu
 
 */
@@ -11,71 +10,45 @@
 
 using namespace std;
 
-class DS_Union {
-    public:
-        DS_Union(int numSets) {
-            this->numSets = numSets;
-            setSize.assign(numSets, 1);
-            rank.assign(numSets, 0);
-            parents.assign(numSets, 0);
-
-            // We start with n sets of size 1
-            for (int i = 0; i < numSets; i++) {
-                parents[i] = i;
+class DSU {
+public:
+    DSU(int n) {
+        // Init with n nodes (0-indexed)
+        this->ranks.resize(n, 0);
+        this->numSets = 0;
+        for (int i = 0; i < n; i++) {
+            parents.push_back(i);
+        }
+    }
+    int Find_Parent(int a) {
+        // Path compression
+        if (parents[a] == a) {
+            return a;
+        }
+        return parents[a] = Find_Parent(parents[a]);
+    }
+    bool Same_Set(int a, int b) {
+        return (Find_Parent(a) == Find_Parent(b));
+    }
+    void Union(int a, int b) {
+        int pa = Find_Parent(a);
+        int pb = Find_Parent(b);
+        if (pa == pb) return;
+        numSets--;
+        // Union by rank
+        if (ranks[pa] > ranks[pb]) {
+            parents[pb] = pa;
+        }
+        else {
+            if (ranks[pa] == ranks[pb]) {
+                ranks[pb]++;
             }
+            parents[pa] = pb;
         }
-
-        // returns parent
-        int find_set(int node) {
-            if (parents[node] == node) {
-                return node;
-            }
-            parents[node] = find_set(parents[node]);
-            return parents[node];
-        }
-
-        bool is_same_set(int node_a, int node_b) {
-            return (find_set(node_a) == find_set(node_b));
-        }
-
-        void set_union(int node_a, int node_b) {
-            if (!is_same_set(node_a, node_b)) {
-                numSets--;
-            }
-
-            int pa = find_set(node_a);
-            int pb = find_set(node_b);
-
-            if (rank[pa] > rank[pb]) {
-                parents[pb] = pa;
-                setSize[pa] += setSize[pb];
-            }
-
-            else {
-                parents[pa] = pb;
-                setSize[pb] += setSize[pa];
-                if (rank[pa] == rank[pb]) {
-                    rank[pb]++;
-                }
-            }
-        }
-
-        int numDisjointSets() {
-            return numSets;
-        }
-
-        int sizeOfSet(int node) {
-            return setSize[find_set(node)];
-        }
-
-    private:
-        vector<int> parents, rank, setSize;
-        int numSets;
+    }
+    int numSets;
+private:
+    vector<int> parents;
+    vector<int> ranks;
+    // vector<int> setSize;
 };
-
-int main() {
-
-
-
-    return 0;
-}
