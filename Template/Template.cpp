@@ -17,6 +17,7 @@ typedef long long ll;
 typedef long double ld;
 typedef pair<int, int> ii;
 typedef vector<int> vi;
+typedef vector<ll> vll;
 typedef vector<ii> vii;
 
 const int MXN = 1e5 + 5;
