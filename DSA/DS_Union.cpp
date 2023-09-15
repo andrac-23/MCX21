@@ -15,7 +15,7 @@ public:
     DSU(int n) {
         // Init with n nodes (0-indexed)
         this->ranks.resize(n, 0);
-        this->numSets = 0;
+        this->numSets = n;
         for (int i = 0; i < n; i++) {
             parents.push_back(i);
         }
