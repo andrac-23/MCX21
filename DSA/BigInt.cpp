@@ -231,6 +231,15 @@ public:
 		return ans;
 	}
 
+	string to_string() const {
+		string s;
+		if (this->sign == -1) { s += "-"; }
+		for (int i = (int) this->a.size() - 1; i >= 0; i--) {
+			s += (char) (this->a[i] + '0');
+		}
+		return s;
+	}
+
 	friend ostream& operator<<(std::ostream& os, const BigInt& obj);
 private:
 	deque<int> a;
@@ -240,7 +249,7 @@ private:
 		this->sign = (s[0] == '-' ? -1 : 1);
 		this->a.clear();
 		for (int i = (int) s.size() - 1; i >= 0; i--) {
-			if (s[i] == '-') break;
+			if (!isdigit(s[i])) continue;
 			int curr_digit = s[i] - '0';
 			a.push_back(curr_digit);
 		}
