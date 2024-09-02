@@ -5,6 +5,8 @@ using namespace std;
 /*
 **                  BigInt
 **
+** Normal operations with big integers.
+**
 ** Sources: - Slides da Aula (Halim Halim 2nd ed)
 **          - https://codeforces.com/blog/entry/1482
 **
@@ -12,9 +14,6 @@ using namespace std;
 
 class BigInt {
 public:
-	deque<int> a;
-	int sign;
-
 	BigInt() : sign(1) { }
 
 	BigInt(long long v) {
@@ -36,21 +35,13 @@ public:
 			this-> sign = -1;
 			v = -v;
 		}
+		else if (v == 0) {
+			this->a.push_back(0);
+		}
 		while (v > 0) {
 			this->a.push_back(v % 10);
 			v /= 10;
 		}
-	}
-
-	void convert_s(const string& s) {
-		this->sign = (s[0] == '-' ? -1 : 1);
-		this->a.clear();
-		for (int i = (int) s.size() - 1; i >= 0; i--) {
-			if (s[i] == '-') break;
-			int curr_digit = s[i] - '0';
-			a.push_back(curr_digit);
-		}
-		this->remove_trailing_zeroes();
 	}
 
 	BigInt operator+(const BigInt& v) const {
@@ -110,6 +101,10 @@ public:
 
 	bool operator==(const BigInt& v) const {
 		return !(*this > v) && !(*this < v);
+	}
+
+	bool operator!=(const BigInt& v) const {
+		return !(*this == v);
 	}
 
 	bool operator>=(const BigInt& v) const {
@@ -237,6 +232,20 @@ public:
 	}
 
 	friend ostream& operator<<(std::ostream& os, const BigInt& obj);
+private:
+	deque<int> a;
+	int sign;
+
+	void convert_s(const string& s) {
+		this->sign = (s[0] == '-' ? -1 : 1);
+		this->a.clear();
+		for (int i = (int) s.size() - 1; i >= 0; i--) {
+			if (s[i] == '-') break;
+			int curr_digit = s[i] - '0';
+			a.push_back(curr_digit);
+		}
+		this->remove_trailing_zeroes();
+	}
 };
 
 ostream& operator<<(std::ostream& os, const BigInt& a) {
@@ -248,6 +257,22 @@ ostream& operator<<(std::ostream& os, const BigInt& a) {
 		os << a.a[i];
 	}
 	return os;
+}
+
+/*
+ * Returns a^b.
+*/
+BigInt pow(const BigInt& a, const BigInt& b) {
+	BigInt ans = 1, base = a, exp = b;
+	BigInt zero = 0, two = 2;
+	while (exp > zero) {
+		if (exp % two != zero) {
+			ans *= base;
+		}
+		base *= base;
+		exp /= two;
+	}
+	return ans;
 }
 
 /*
