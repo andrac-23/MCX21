@@ -1,5 +1,5 @@
 # MCX21
 
-Algoritmos utilizados nas disciplinas MCX21 - Desafios de Programação I, II, III e IV, oferecidas na UNICAMP.
+Algorithms used in the MCX21 courses – Programming Challenges I, II, III, and IV, offered at UNICAMP.
 
-As fontes (sources) de cada algoritmo estão comentadas no começo dos códigos.
+The source of each algorithm can be found at the beginning of the code files.
