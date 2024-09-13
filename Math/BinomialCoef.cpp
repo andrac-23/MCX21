@@ -5,6 +5,8 @@ using namespace std;
 constexpr int MxN = 1e6;
 constexpr int MOD = 1e9 + 7;
 
+// Source: https://cp-algorithms.com/combinatorics/binomial-coefficients.html#computing-binomial-coefficients-modulo-m
+
 vector<long long> factorial(MxN + 1, 1);
 
 long long inverse(long long a) {
